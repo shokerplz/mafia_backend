@@ -1,0 +1,13 @@
+{
+    "id" : "",
+    "users" : {
+    },
+    "max_users" : "",
+    "state" : "",
+    "daytime" : "true",
+    "alive" : "",
+    "killed" : "",
+    "jailed" : "",
+    "mafia" : "",
+    "peaceful" : ""
+}
