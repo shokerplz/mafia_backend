@@ -5,11 +5,8 @@ global players, rooms
 
 players = []
 rooms   = {}
-<<<<<<< HEAD
-=======
 room_json = json.load(open("template_room.json"))
 user_json = json.load(open("template_user.json"))
->>>>>>> master
 
 @app.route('/')
 def root():
