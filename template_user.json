@@ -1,6 +1,6 @@
 {
-    "0" : {
-        "id" : "",
-        "votes" : ""
-    }
+    "id" : "",
+    "votes_against" : "",
+    "alive" : "",
+    "_inarray" : ""
 }

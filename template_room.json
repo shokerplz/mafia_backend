@@ -1,7 +1,8 @@
 {
     "id" : "",
-    "users" : {
-    },
+    "users" : [
+
+    ],
     "max_users" : "",
     "state" : "",
     "daytime" : "true",
@@ -9,5 +10,6 @@
     "killed" : "",
     "jailed" : "",
     "mafia" : "",
-    "peaceful" : ""
+    "peaceful" : "",
+    "_inarray" : ""
 }
