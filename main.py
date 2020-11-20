@@ -5,6 +5,11 @@ global players, rooms
 
 players = []
 rooms   = {}
+<<<<<<< HEAD
+=======
+room_json = json.load(open("template_room.json"))
+user_json = json.load(open("template_user.json"))
+>>>>>>> master
 
 @app.route('/')
 def root():
@@ -29,12 +34,10 @@ def create_root():
     while True:
         room_id = random.randint(0, 100)
         if room_id not in rooms.keys():
-            rooms[room_id] = {
-                
-            }
-        else: break
-        print(rooms)
+            rooms[room_id] = dict(room_json)
+            rooms[room_id]['id'] = room_id
+            break # Create function to enter new room
     return(jsonify(
-        ROOM_ID=room_id
+        rooms[room_id]
     ))
 app.run()
