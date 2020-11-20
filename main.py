@@ -28,6 +28,8 @@ def create_root():
     data = request.args
     if (not data or not data['user_id']): abort(400, 'User id not found')
     else: user_id = data['user_id']
+    if int(user_id) not in players:
+        return("Player not found", 400)
     while True:
         room_id = random.randint(0, 100)
         if room_id not in rooms.keys():
