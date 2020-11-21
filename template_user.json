@@ -2,5 +2,6 @@
     "id" : "",
     "votes_against" : "",
     "alive" : "",
-    "_inarray" : ""
+    "role" : "",
+    "ready": "false"
 }

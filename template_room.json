@@ -5,11 +5,13 @@
     ],
     "max_users" : "",
     "state" : "",
-    "daytime" : "true",
-    "alive" : "",
-    "killed" : "",
-    "jailed" : "",
-    "mafia" : "",
-    "peaceful" : "",
-    "_inarray" : ""
+    "daytime" : "day",
+    "alive" : [],
+    "killed" : [],
+    "jailed" : [],
+    "mafia" : [],
+    "peaceful" : [],
+    "cicle" : "",
+    "voted" : 0,
+    "voted_to_kill" : 0
 }
