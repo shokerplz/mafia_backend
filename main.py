@@ -155,12 +155,12 @@ def action():
     room = get_room_by_id(player['room_id'])
 
     if (action != 'vote' and action != 'kill'): abort(400, 'Wrong action')
-    if (action == 'vote'):
+    if (action == 'vote' and room['state'] == 'vote' and player_in_room['id'] in room['alive']):
         target_in_room['votes_against'] += 1
         room['voted'] += 1
         return(json.dumps({'success':True}), 200, {'ContentType':'application/json'})
     if (action == 'kill'):
-        if player_in_room['role'] == 'mafia' and room['daytime'] == 'night':
+        if player_in_room['role'] == 'mafia' and room['daytime'] == 'night' and player_in_room['id'] in room['mafia']:
             target_in_room['votes_against'] += 1
             room['voted_to_kill'] += 1
             return(json.dumps({'success':True}), 200, {'ContentType':'application/json'} )
@@ -219,19 +219,23 @@ def game(room): # main game function
     while next((p for p in room['users'] if p["ready"] == 'true' and p['role'] == 'mafia'), None) == None:
         time.sleep(1)
     time.sleep(5)
+    print(1)
     while not check_if_game_ended(room):
         tmp_users = room['users'].copy()
         for user in tmp_users: 
             user['ready'] = 'false'
         room['users'] = tmp_users
         del tmp_users
+        print(2)
         room['daytime'] = 'day'
         room['cicle'] += 1
         vote(room)
+        print(3)
         time.sleep(5)
         room['daytime'] = 'night'
         time.sleep(2)
         kill(room)
+        print(4)
     room['state'] = 'ended won: '+check_if_game_ended(room)[1]
     return(True)
 
@@ -245,7 +249,7 @@ def check_if_game_ended(room):
     return(False)
 
 def kill(room):
-    while room['voted_to_kill'] != len(room['mafia']):
+    while room['voted_to_kill'] < len(room['mafia']):
         time.sleep(1)
     if (len(room['mafia']) == 0): return(None)
     votes_max = 0
@@ -274,7 +278,7 @@ def kill(room):
 
 def vote(room):
     room['state'] = 'vote'
-    while room['voted'] != (len(room['peaceful']) + len(room['mafia'])):
+    while room['voted'] < (len(room['peaceful']) + len(room['mafia'])):
         time.sleep(1)
     votes_max = 0
     votes_max_user = ''
