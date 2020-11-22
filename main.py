@@ -1,5 +1,7 @@
 from importing_modules import *
 app = Flask(__name__)
+CORS(app)
+app.config['CORS_HEADERS'] = 'Content-Type'
 
 global players, rooms
 
@@ -219,23 +221,19 @@ def game(room): # main game function
     while next((p for p in room['users'] if p["ready"] == 'true' and p['role'] == 'mafia'), None) == None:
         time.sleep(1)
     time.sleep(5)
-    print(1)
     while not check_if_game_ended(room):
         tmp_users = room['users'].copy()
         for user in tmp_users: 
             user['ready'] = 'false'
         room['users'] = tmp_users
         del tmp_users
-        print(2)
         room['daytime'] = 'day'
         room['cicle'] += 1
         vote(room)
-        print(3)
         time.sleep(5)
         room['daytime'] = 'night'
         time.sleep(2)
         kill(room)
-        print(4)
     room['state'] = 'ended won: '+check_if_game_ended(room)[1]
     return(True)
 
