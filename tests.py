@@ -45,10 +45,11 @@ def kill(user_id, target_id):
     return(voted_to_kill_json)
 
 #try:
+USERS_IN_ROOM=9
 user_id = create_user()
-room_id = create_room(user_id, '9')
+room_id = create_room(user_id, str(USERS_IN_ROOM))
 users_in_room = []
-for i in range(9):
+for i in range(USERS_IN_ROOM):
     new_user_id = create_user()
     users_in_room.append(new_user_id)
     join_room(room_id, new_user_id)['users']
@@ -64,25 +65,37 @@ for player in room_status['users']:
         print(player['id'])
         set_ready(player['id'])
 time.sleep(15)
+room_status = json.loads(get_status(users_in_room[1]))
+print('ROOM STATUS ON MAFIA READY: ')
+print(room_status)
+print('\n')
 while not room_status['state'].startswith('ended'):
-    room_status = json.loads(get_status(users_in_room[1]))
-    print('ROOM STATUS ON MAFIA READY: ')
-    print(room_status)
-    print('\n')
-    to_vote = random.choice(users_in_room)
+    time.sleep(5)
+    room_status = json.loads(get_status(users_in_room[0]))
     for user in users_in_room:
-        vote(random.choice(users_in_room), to_vote)
-    time.sleep(10)
+        to_vote = random.choice(users_in_room)
+        if to_vote in room_status['alive']: break
+        else: continue
+    room_status = json.loads(get_status(users_in_room[0]))
+    for user in users_in_room:
+        if (user in room_status['alive']):
+            vote(user, to_vote)
+    time.sleep(5)
     room_status = json.loads(get_status(users_in_room[1]))
     print('ROOM STATUS AFTER VOTE: ')
     print(room_status)
     print('\n')
-    time.sleep(10)
-    to_kill = random.choice(users_in_room)
+    time.sleep(5)
+    room_status = json.loads(get_status(users_in_room[0]))
+    for user in users_in_room:
+        to_kill = random.choice(users_in_room)
+        if to_kill in room_status['alive']: break
+        else: continue
+    room_status = json.loads(get_status(users_in_room[0]))
     for player in room_status['users']:
-        if (player['role'] == 'mafia'):
+        if (player['role'] == 'mafia' and player['id'] in room_status['alive']):
             kill(player['id'], to_kill)
-    time.sleep(10)
+    time.sleep(5)
     room_status = json.loads(get_status(users_in_room[0]))
     print('ROOM STATUS AFTER KILL: ')
     print(room_status)

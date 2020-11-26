@@ -182,11 +182,11 @@ def get_status():
     ))
 
 def game(room): # main game function
-    while get_users_ready(room['id']) != None: time.sleep(1)
+    while get_users_ready(room['id']) != None: time.sleep(0.25)
     time.sleep(5)
     b_factor = 3
     b_amount = round(int(room['max_users']) / b_factor)
-    b_indexes = np.random.randint(len(room['users']), size = b_amount)
+    b_indexes = np.random.choice(len(room['users']), b_amount, replace=False)
     black_users = []
     for user in b_indexes:
         tmp_users = room['users'].copy()
