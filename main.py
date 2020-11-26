@@ -219,7 +219,7 @@ def game(room): # main game function
     room['daytime'] = 'night'
     room['cicle'] = 1
     while next((p for p in room['users'] if p["ready"] == 'true' and p['role'] == 'mafia'), None) == None:
-        time.sleep(1)
+        time.sleep(0.25)
     time.sleep(5)
     while not check_if_game_ended(room):
         tmp_users = room['users'].copy()
@@ -248,7 +248,7 @@ def check_if_game_ended(room):
 
 def kill(room):
     while room['voted_to_kill'] < len(room['mafia']):
-        time.sleep(1)
+        time.sleep(0.25)
     if (len(room['mafia']) == 0): return(None)
     votes_max = 0
     votes_max_user = ''
@@ -277,7 +277,7 @@ def kill(room):
 def vote(room):
     room['state'] = 'vote'
     while room['voted'] < (len(room['peaceful']) + len(room['mafia'])):
-        time.sleep(1)
+        time.sleep(0.25)
     votes_max = 0
     votes_max_user = ''
     for user in room['users']:
