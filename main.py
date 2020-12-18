@@ -305,5 +305,5 @@ def vote(room):
     room['users'] = tmp_users
     del tmp_users
     return(True)
-
-app.run()
+if __name__ == '__main__':
+ app.run(host='0.0.0.0', debug=True, port=80)

@@ -52,7 +52,7 @@ def print_status(room_status):
     print('Killed users: '+' '.join(room_status['killed']))
 
 #try:
-USERS_IN_ROOM=9
+USERS_IN_ROOM=15
 user_id = create_user()
 room_id = create_room(user_id, str(USERS_IN_ROOM))
 users_in_room = []
@@ -111,7 +111,8 @@ while not room_status['state'].startswith('ended'):
     print('\n')
 if ('peaceful' in room_status['state']):
     print('Peaceful won')
-else: print('Mafia won')
+else:
+    print('Mafia won')
         
 
 #except Exception as e:
