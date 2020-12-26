@@ -31,8 +31,6 @@ def get_users_ready(room_id):
     room = get_room_by_id(room_id)
     return next((p for p in room['users'] if p["ready"] == 'false'), None)
 
-
-
 def get_room_by_id(room_id):
     if isinstance(room_id, str):
         room_id = int(room_id)
@@ -306,4 +304,4 @@ def vote(room):
     del tmp_users
     return(True)
 if __name__ == '__main__':
- app.run(host='0.0.0.0', debug=True, port=80)
+ app.run(host='0.0.0.0', debug=True, port=5000)
