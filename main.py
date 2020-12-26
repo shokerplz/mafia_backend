@@ -96,6 +96,7 @@ def join_room():
     player = get_user_by_id(user_id)
     if (player['in_room'] == 'true'): abort(400, 'You are already in room')
     room = get_room_by_id(room_id)
+    if room is None: abort(400, 'There is no such room')
     if (int(room['max_users'])) <= len(room['users']): abort(400, 'Room is full')
     player_enter_dict = dict(user_json)
     player_enter_dict['id'] = user_id
